@@ -17,6 +17,11 @@ class ToDos(models.Model):
 
     status=models.CharField(max_length=60,choices=STATUS_CHOICES,default='waiting')
 
+    put_at=models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=['-put_at']
+
     def __str__(self):
         return f"{self.owner.username} - {self.status} (+{self.exp}xp)"
 

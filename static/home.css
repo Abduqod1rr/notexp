@@ -1,0 +1,86 @@
+/* --- General Page --- */
+body {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Container --- */
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #2b2b2b;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+}
+
+/* --- Heading --- */
+h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+p.current-xp {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #00ff7f;
+    font-weight: bold;
+}
+
+/* --- Todo items --- */
+.todo-item {
+    background-color: #1a1a1a;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.todo-item.finished {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+/* --- Buttons / links --- */
+.todo-item a {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #00ff7f;
+    color: #1e1e1e;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.todo-item a:hover {
+    background-color: #00e673;
+}
+
+/* --- Empty state --- */
+p.empty {
+    text-align: center;
+    color: #a0a0a0;
+    font-style: italic;
+}
+
+/* --- XP Progress Bar (optional) --- */
+.progress-bar-container {
+    background-color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 10px;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #00ff7f;
+    width: 0%; /* dynamically adjust with XP */
+    transition: width 0.5s ease;
+}
