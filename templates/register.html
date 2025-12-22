@@ -1,1 +1,30 @@
-<h1>sss<h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | notexp</title>
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>not<span>exp</span></h1>
+        <p class="subtitle">Create account. Earn EXP.</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password1" placeholder="Password" required>
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+
+            <button type="submit">Start Grinding</button>
+        </form>
+
+        <p class="login-text">
+            Already have an account?
+           
+        </p>
+    </div>
+</body>
+</html>

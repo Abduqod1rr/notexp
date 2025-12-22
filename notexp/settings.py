@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'notexp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'notexpdb',
+        'USER': 'notexpuser',
+        'PASSWORD': 'strongpasswordnnnt12',
+        'HOST': 'localhost',
+        'PORT': '6666',
     }
 }
 
@@ -117,3 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
