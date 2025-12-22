@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | notexp</title>
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>not<span>exp</span></h1>
+        <p class="subtitle">Log in and start earning EXP.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password }}
+
+            <button type="submit">Enter the Grind</button>
+        </form>
+
+        <p class="login-text">
+            Don’t have an account?
+            <a href="{% url 'register' %}">Register</a>
+        </p>
+    </div>
+</body>
+</html>
