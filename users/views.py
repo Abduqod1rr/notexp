@@ -1,4 +1,4 @@
-from django.shortcuts import render 
+from django.shortcuts import render ,redirect
 from django.views.generic import CreateView ,DeleteView,ListView ,UpdateView
 from .forms import UserForm
 from django.contrib.auth import logout
@@ -16,4 +16,6 @@ class UserLogin(LoginView):
     template_name='login.html'
     success_url=reverse_lazy('home')
    
-    
+def l_out(request):
+    logout(request)
+    return redirect('home')
