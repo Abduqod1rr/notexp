@@ -7,20 +7,30 @@
     <link rel="stylesheet" href="{% static 'home.css' %}">
 </head>
 <body>
-    <div class="container">
-        <h2>Welcome {{ user.username }}</h2>
-        <p class="current-xp">Your current EXP: {{ current_xp }}</p>
 
-        {% for todo in todos %}
-        <div class="todo-item {% if todo.status == 'finished' %}finished{% endif %}">
-            <span>{{ todo.put_at|date:"H:i d-m-Y" }} - {{ todo.status }} (+{{ todo.exp }} XP)</span>
-            <a href="{% url 'toggle_todo' todo.id %}">
+<div class="container">
+    <h2>Welcome {{ user.username }}</h2>
+    <p class="current-xp">Your current EXP: {{ current_xp }}</p>
+
+    {% for todo in todos %}
+    <div class="todo-item {% if todo.status == 'finished' %}finished{% endif %}">
+        <div class="todo-left">
+            <strong>{{ todo.title }}</strong>
+            <p class="meta">
+                {{ todo.put_at|date:"H:i d-m-Y" }} · +{{ todo.exp }} XP · {{ todo.status }}
+            </p>
+        </div>
+
+        <div class="todo-right">
+            <a class="toggle" href="{% url 'toggle_todo' todo.pk %}">
                 {% if todo.status == 'waiting' %} Finish {% else %} Undo {% endif %}
             </a>
         </div>
-        {% empty %}
-        <p class="empty">No todos yet. Start grinding!</p>
-        {% endfor %}
     </div>
+    {% empty %}
+        <p class="empty">No todos yet. Start grinding!</p>
+    {% endfor %}
+</div>
+
 </body>
 </html>

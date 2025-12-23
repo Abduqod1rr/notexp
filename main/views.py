@@ -1,6 +1,7 @@
-from django.shortcuts import render ,get_object_or_404
+from django.shortcuts import render ,get_object_or_404 ,redirect
 from django.views.generic import ListView,DeleteView ,UpdateView ,CreateView
 from .models import ToDos ,EXPS
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
@@ -38,3 +39,24 @@ class deleteToDo(LoginRequiredMixin,DeleteView):
         obj=self.get_object()
         return obj.owner==self.request.user
     
+@login_required
+def toggle_todo_status(request,pk):
+    todo = get_object_or_404(ToDos,pk= pk,owner=request.user)
+
+    if todo.status=='waiting':
+        todo.status = 'fineshed'
+
+        exps , created = EXPS.objects.get_or_create(owner=request.user)
+        exps.amount += todo.exp
+
+        exps.save()
+    else:
+        todo.status='waiting'
+
+        exps = EXPS.objects.get(owner=request.user)
+        exps.amount -= todo.exp
+
+        exps.save()
+
+    todo.save()
+    return redirect('home')
