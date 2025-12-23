@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Task | notexp</title>
+    <link rel="stylesheet" href="{% static 'create.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Create <span>Task</span></h1>
+        <p class="subtitle">Write it down. Finish it. Gain EXP.</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.title }}
+            {{ form.about }}
+            {{ form.exp }}
+
+            <button type="submit">Add Task</button>
+        </form>
+
+        <a class="back" href="{% url 'home' %}">← Back to Home</a>
+    </div>
+</body>
+</html>

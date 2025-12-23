@@ -23,7 +23,7 @@ class Home(LoginRequiredMixin,ListView):
 class addToDo(LoginRequiredMixin,CreateView):
     model = ToDos
     template_name='create.html'
-    fields=['']
+    fields=['title','about','exp']
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
