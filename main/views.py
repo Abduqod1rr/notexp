@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,get_object_or_404
 from django.views.generic import ListView,DeleteView ,UpdateView ,CreateView
 from .models import ToDos ,EXPS
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -29,4 +29,12 @@ class addToDo(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.owner=self.request.user
         return super().form_valid(form)
+    
+class deleteToDo(LoginRequiredMixin,DeleteView):
+    model = ToDos
+    success_url = reverse_lazy('home')
+
+    def test_func(self):
+        obj=self.get_object()
+        return obj.owner==self.request.user
     
