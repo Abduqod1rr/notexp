@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView,DeleteView ,UpdateView ,CreateView
 from .models import ToDos ,EXPS
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 class Home(LoginRequiredMixin,ListView):
     model=ToDos
@@ -18,3 +19,14 @@ class Home(LoginRequiredMixin,ListView):
         exps, created = EXPS.objects.get_or_create(owner=self.request.user)
         context['current_xp'] = exps.amount
         return context
+    
+class addToDo(LoginRequiredMixin,CreateView):
+    model = ToDos
+    template_name='create.html'
+    fields=['']
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.instance.owner=self.request.user
+        return super().form_valid(form)
+    
