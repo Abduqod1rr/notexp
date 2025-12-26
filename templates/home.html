@@ -7,30 +7,42 @@
     <link rel="stylesheet" href="{% static 'home.css' %}">
 </head>
 <body>
-
 <div class="container">
-    <h2>Welcome {{ user.username }}</h2>
-    <p class="current-xp">Your current EXP: {{ current_xp }}</p>
+    <header class="top-bar">
+        <h1>Welcome, <span>{{ user.username }}</span></h1>
+        <p class="current-xp">EXP: <strong>{{ current_xp }}</strong></p>
+        <!-- Real button -->
+        <form action="{% url 'write' %}" method="get" style="margin-top:15px;">
+            <button type="submit" class="btn add">+ New Task</button>
+        </form>
+    </header>
 
-    {% for todo in todos %}
-    <div class="todo-item {% if todo.status == 'finished' %}finished{% endif %}">
-        <div class="todo-left">
-            <strong>{{ todo.title }}</strong>
-            <p class="meta">
-                {{ todo.put_at|date:"H:i d-m-Y" }} · +{{ todo.exp }} XP · {{ todo.status }}
-            </p>
+    <section class="todos">
+        {% for todo in todos %}
+        <div class="todo-card {% if todo.status == 'finished' %}finished{% endif %}">
+            <div class="todo-info">
+                <h3>{{ todo.title }}</h3>
+                {% if todo.about %}
+                <p>{{ todo.about }}</p>
+                {% endif %}
+                <small>{{ todo.put_at|date:"H:i d-m-Y" }} · +{{ todo.exp }} XP · {{ todo.status }}</small>
+            </div>
+            <div class="todo-actions">
+                <!-- Real buttons -->
+                <form action="{% url 'toggle_todo' todo.pk %}" method="get">
+                    <button type="submit" class="btn toggle">
+                        {% if todo.status == 'waiting' %} Finish {% else %} Undo {% endif %}
+                    </button>
+                </form>
+                <form action="{% url 'delete' todo.pk %}" method="get">
+                    <button type="submit" class="btn delete">Delete</button>
+                </form>
+            </div>
         </div>
-
-        <div class="todo-right">
-            <a class="toggle" href="{% url 'toggle_todo' todo.pk %}">
-                {% if todo.status == 'waiting' %} Finish {% else %} Undo {% endif %}
-            </a>
-        </div>
-    </div>
-    {% empty %}
-        <p class="empty">No todos yet. Start grinding!</p>
-    {% endfor %}
+        {% empty %}
+        <p class="empty">No tasks yet. Start grinding!</p>
+        {% endfor %}
+    </section>
 </div>
-
 </body>
 </html>

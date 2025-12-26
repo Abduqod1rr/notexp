@@ -2,7 +2,7 @@ from django.shortcuts import render ,get_object_or_404 ,redirect
 from django.views.generic import ListView,DeleteView ,UpdateView ,CreateView
 from .models import ToDos ,EXPS
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy
 
 class Home(LoginRequiredMixin,ListView):
@@ -31,14 +31,12 @@ class addToDo(LoginRequiredMixin,CreateView):
         form.instance.owner=self.request.user
         return super().form_valid(form)
     
-class deleteToDo(LoginRequiredMixin,DeleteView):
-    model = ToDos
-    success_url = reverse_lazy('home')
+@login_required
+def delete_todo_fast(request, pk):
+    todo = get_object_or_404(ToDos, pk=pk, owner=request.user)
+    todo.delete()
+    return redirect('home')
 
-    def test_func(self):
-        obj=self.get_object()
-        return obj.owner==self.request.user
-    
 @login_required
 def toggle_todo_status(request,pk):
     todo = get_object_or_404(ToDos,pk= pk,owner=request.user)

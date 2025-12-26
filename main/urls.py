@@ -4,6 +4,6 @@ from . import views
 urlpatterns = [
     path("", views.Home.as_view(), name="home"),
     path("write/", views.addToDo.as_view(), name="write"),
-    path("delete/<int:pk>", views.deleteToDo.as_view(), name="delete"),
+    path("delete/<int:pk>", views.delete_todo_fast, name="delete"),
     path("toggle_todo/<int:pk>", views.toggle_todo_status, name="toggle_todo")
 ]
