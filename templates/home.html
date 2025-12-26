@@ -9,13 +9,22 @@
 <body>
 <div class="container">
     <header class="top-bar">
-        <h1>Welcome, <span>{{ user.username }}</span></h1>
-        <p class="current-xp">EXP: <strong>{{ current_xp }}</strong></p>
-        <!-- Real button -->
-        <form action="{% url 'write' %}" method="get" style="margin-top:15px;">
+    <h1>Your List ! <span>{{ user.username }}</span></h1>
+    <p class="current-xp">EXP: <strong>{{ current_xp }}</strong></p>
+
+    <div class="top-actions">
+        <form action="{% url 'write' %}" method="get">
             <button type="submit" class="btn add">+ New Task</button>
         </form>
-    </header>
+
+        <form action="{% url 'logout' %}" method="post" class="logout-form">
+    {% csrf_token %}
+    <button type="submit" class="btn logout">Logout</button>
+</form>
+
+    </div>
+</header>
+
 
     <section class="todos">
         {% for todo in todos %}
